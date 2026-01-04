@@ -8,6 +8,14 @@ and ask analytical or conversational questions using LLMs.
 This project explores how LLMs can act as data copilots over arbitrary,
 unknown datasets without predefined schemas or pipelines.
 
+## Architecture Overview
+
+- Excel files are ingested into Postgres (JSONB) and Qdrant
+- Conversational queries use RAG over vector search
+- Analytical queries are translated into safe, read-only SQL
+- Responses are streamed to the UI using SSE
+- Local LLM inference via Ollama
+
 ## Features
 - Upload Excel files
 - Automatic ingestion into Postgres (JSONB)
@@ -37,12 +45,11 @@ cd backend
 cp .env.example .env
 poetry install
 poetry run uvicorn app.main:app --reload
+```
 
-
-## Architecture Overview
-
-- Excel files are ingested into Postgres (JSONB) and Qdrant
-- Conversational queries use RAG over vector search
-- Analytical queries are translated into safe, read-only SQL
-- Responses are streamed to the UI using SSE
-- Local LLM inference via Ollama
+### Run Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
